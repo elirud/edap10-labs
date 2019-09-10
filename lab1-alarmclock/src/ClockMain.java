@@ -6,25 +6,43 @@ import clock.ClockOutput;
 import emulator.AlarmClockEmulator;
 
 public class ClockMain {
+	
 
-    public static void main(String[] args) throws InterruptedException {
-        AlarmClockEmulator emulator = new AlarmClockEmulator();
 
-        ClockInput  in  = emulator.getInput();
-        ClockOutput out = emulator.getOutput();
+	public static void main(String[] args) throws InterruptedException {
+		AlarmClockEmulator emulator = new AlarmClockEmulator();
 
-        out.displayTime(150237);   // arbitrary time: just an example
+		ClockInput in = emulator.getInput();
+		ClockOutput out = emulator.getOutput();
 
-        Semaphore sem = in.getSemaphore();
+		TimeHandler timeHandler = new TimeHandler(out);
+		AlarmHandler alarmHandler = new AlarmHandler(out, timeHandler);
+		
+		timeHandler.startTime();
 
-        while (true) {
-            sem.acquire();                        // wait for user input
+		Semaphore sem = in.getSemaphore();
 
-            UserInput userInput = in.getUserInput();
-            int choice = userInput.getChoice();
-            int value = userInput.getValue();
+		while (true) {
+			sem.acquire(); // wait for user input
 
-            System.out.println("choice = " + choice + "  value=" + value);
-        }
-    }
+			UserInput userInput = in.getUserInput();
+			int choice = userInput.getChoice();
+			int value = userInput.getValue();
+
+			switch (choice) {
+				case 1:
+					timeHandler.setTime(value);
+					break;
+				case 2:
+					alarmHandler.setAlarm(value);
+					break;
+				case 3:
+					alarmHandler.toggleAlarm();
+					break;
+				default:
+			}
+
+			System.out.println("choice = " + choice + "  value=" + value);
+		}
+	}
 }

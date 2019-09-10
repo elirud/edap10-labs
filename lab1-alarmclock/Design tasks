@@ -1,0 +1,11 @@
+Design tasks.
+
+1. Mainthread to handle inputs. Timethread to display time. Alarmthread to check time vs set alarm and to flash screen.
+
+2. The current time needs to be shared between the timethread and the alarmthread. The data could be stored in the same class used to format the time string from the integer.
+
+3. Mainthread handles inputs from the user. timethread calculates time and displays it on the emulator. Alarmthread checks time vs alarm and handles the alarm when it does go off.
+
+4. Every time update, timethread will need to get the time to display it. Alarmthread will also need the time to check it against the time set for the alarm.
+
+5. 
