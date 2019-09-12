@@ -40,6 +40,7 @@ public class ClockMain {
 					alarmHandler.toggleAlarm();
 					break;
 				default:
+					alarmHandler.stopAlarm();
 			}
 
 			System.out.println("choice = " + choice + "  value=" + value);

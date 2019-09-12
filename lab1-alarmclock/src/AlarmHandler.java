@@ -3,9 +3,10 @@ import clock.ClockOutput;
 public class AlarmHandler {
 
 	ClockOutput out;
-	boolean alarm = false;
+	boolean alarm = false, alarming = false;
 	int alarmTime;
 	TimeHandler timeHandler;
+	Thread alarmThread;
 
 	public AlarmHandler(ClockOutput out, TimeHandler timeHandler) {
 		
@@ -18,7 +19,7 @@ public class AlarmHandler {
 
 		out.setAlarmIndicator(alarm = !alarm);
 
-		Thread alarmThread = new Thread(() -> {
+		alarmThread = new Thread(() -> {
 			
 			while(!Thread.interrupted()) {
 				
@@ -26,6 +27,7 @@ public class AlarmHandler {
 					
 					for(int i = 0; i < 20; i++) {
 						
+						alarming = true;
 						out.alarm();
 						try {
 							Thread.sleep(998);
@@ -43,7 +45,7 @@ public class AlarmHandler {
 
 		if (alarm)
 			alarmThread.start();
-		else
+		else  
 			alarmThread.interrupt();
 
 	}
@@ -52,6 +54,15 @@ public class AlarmHandler {
 		
 		this.alarmTime = alarmTime;
 
+	}
+	
+	public void stopAlarm() {
+		
+		if(alarming) {
+			alarmThread.interrupt();
+		}
+			
+		
 	}
 
 }
