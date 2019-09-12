@@ -4,7 +4,7 @@ public class AlarmHandler {
 
 	ClockOutput out;
 	boolean alarm = false, alarming = false;
-	int alarmTime;
+	int alarmTime, alarmCount;
 	TimeHandler timeHandler;
 	Thread alarmThread;
 
@@ -25,7 +25,7 @@ public class AlarmHandler {
 				
 				if (timeHandler.getTime() == alarmTime) {
 					
-					for(int i = 0; i < 20; i++) {
+					for(alarmCount = 0; alarmCount < 20; alarmCount++) {
 						
 						alarming = true;
 						out.alarm();
@@ -59,7 +59,7 @@ public class AlarmHandler {
 	public void stopAlarm() {
 		
 		if(alarming) {
-			alarmThread.interrupt();
+			alarmCount = 20;
 		}
 			
 		
