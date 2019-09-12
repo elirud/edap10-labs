@@ -1,9 +1,12 @@
+import java.util.concurrent.Semaphore;
+
 import clock.ClockOutput;
 
 public class TimeHandler {
 
 	int hour, min, sec, time = 235958;
 	String timeString, prevTimeString;
+	Semaphore mutex = new Semaphore(1);
 	ClockOutput out;
 
 	public TimeHandler(ClockOutput out) {
@@ -51,15 +54,21 @@ public class TimeHandler {
 		
 	}
 	
-	public int updateTime() {
+	public int updateTime() throws InterruptedException {
 		
-		return time = formatTime(time);
+		mutex.acquire();
+		time = formatTime(time);
+		mutex.release();
+		return time;
 		
 	}
 	
-	public int setTime(int newTime) {
+	public int setTime(int newTime) throws InterruptedException {
 		
-		return time = formatTime(newTime);
+		mutex.acquire();		
+		time = formatTime(newTime);
+		mutex.release();
+		return time;
 		
 	}
 	
