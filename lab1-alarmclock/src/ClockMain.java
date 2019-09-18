@@ -34,13 +34,13 @@ public class ClockMain {
 					timeHandler.setTime(value);
 					break;
 				case 2:
-					alarmHandler.setAlarm(value);
+					timeHandler.setAlarm(value);
 					break;
 				case 3:
-					alarmHandler.toggleAlarm();
+					timeHandler.toggleAlarm();
 					break;
 				default:
-					alarmHandler.stopAlarm();
+					timeHandler.stopAlarm();
 			}
 
 			System.out.println("choice = " + choice + "  value=" + value);
