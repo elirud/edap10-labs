@@ -86,53 +86,53 @@ public class TimeHandler implements Runnable {
 
 	public void startTime() {
 
-		//scheduler.scheduleAtFixedRate(this, 1, 1, TimeUnit.SECONDS);
+		scheduler.scheduleAtFixedRate(this, 1, 1, TimeUnit.SECONDS);
 
-		Thread timeThread = new Thread(() -> {
-
-			long t0 = System.currentTimeMillis();
-
-			while (true) {
-
-				try {
-
-					out.displayTime(updateTime());
-					if (time == alarmTime && alarm) {
-
-						alarming = true;
-						
-					}
-					
-					if (alarming) {
-						
-						if (alarmCount < 20) {
-
-							out.alarm();
-							alarmCount++;
-
-						} else {
-
-							alarmCount = 0;
-							alarming = false;
-
-						}
-						
-					}
-					
-					long time = -(System.currentTimeMillis() - t0);
-					System.out.println(time);
-					Thread.sleep((-(System.currentTimeMillis() - t0) % 1000) + 1000);
-
-				} catch (InterruptedException e) {
-
-					e.printStackTrace();
-
-				}
-
-			}
-
-		});
-		timeThread.start();
+//		Thread timeThread = new Thread(() -> {
+//
+//			long t0 = System.currentTimeMillis();
+//
+//			while (true) {
+//
+//				try {
+//
+//					out.displayTime(updateTime());
+//					if (time == alarmTime && alarm) {
+//
+//						alarming = true;
+//						
+//					}
+//					
+//					if (alarming) {
+//						
+//						if (alarmCount < 20) {
+//
+//							out.alarm();
+//							alarmCount++;
+//
+//						} else {
+//
+//							alarmCount = 0;
+//							alarming = false;
+//
+//						}
+//						
+//					}
+//					
+//					long time = -((System.currentTimeMillis() - t0) % 1000) + 1000;
+//					System.out.println(time);
+//					Thread.sleep(-((System.currentTimeMillis() - t0) % 1000) + 1000);
+//
+//				} catch (InterruptedException e) {
+//
+//					e.printStackTrace();
+//
+//				}
+//
+//			}
+//
+//		});
+//		timeThread.start();
 
 	}
 
@@ -140,11 +140,16 @@ public class TimeHandler implements Runnable {
 	public void run() {
 
 		try {
+			
 			out.displayTime(updateTime());
 			if (time == alarmTime && alarm) {
 
 				alarming = true;
-
+				
+			}
+			
+			if (alarming) {
+				
 				if (alarmCount < 20) {
 
 					out.alarm();
@@ -153,9 +158,12 @@ public class TimeHandler implements Runnable {
 				} else {
 
 					alarmCount = 0;
+					alarming = false;
 
 				}
+				
 			}
+			
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -173,7 +181,7 @@ public class TimeHandler implements Runnable {
 
 		if (alarming) {
 			
-			alarmCount = 20;
+			alarmCount = 0;
 			alarming = false;
 			
 		}
