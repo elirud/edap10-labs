@@ -4,6 +4,8 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JProgressBar;
+
 import rsa.impl.RSA;
 
 public class Factorizer {
@@ -14,6 +16,8 @@ public class Factorizer {
      * Breaks the RSA-encrypted message in code, by factorizing the integer n.
      * Progress is reported continually using the ProgressTracker callback
      * interface.
+     * @param jProgressBar 
+     * @param mainProgressBar 
      * 
      * @return  the decrypted (plaintext) message
      */

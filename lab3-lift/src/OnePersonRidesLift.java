@@ -9,7 +9,7 @@ public class OnePersonRidesLift {
 		Monitor monitor = new Monitor(view);
 		LiftThread lift = new LiftThread(monitor, view);
 
-		for (int i = 0; i < 20; i++) {
+		for (int i = 0; i < 50; i++) {
 			
 			new PersonThread(monitor, view.createPassenger()).start();
 			

@@ -21,7 +21,7 @@ public class PersonThread extends Thread {
 			
 			sleep(1000 * r.nextInt(46));
 			
-		} catch (InterruptedException e) {
+		} catch (InterruptedException e) { 
 		
 			e.printStackTrace();
 		

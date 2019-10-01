@@ -19,6 +19,7 @@ public class CodeBreakingExample {
                 + "298909734370926550.81192449829613396.132648165883269346.";
 
         ProgressTracker tracker = new Tracker();
+        System.out.println(code);
         String plaintext = Factorizer.crack(code, n, tracker);
 
         System.out.println("Decryption complete. The message is \"" + plaintext + "\"");
