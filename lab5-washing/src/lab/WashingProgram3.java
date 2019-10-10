@@ -56,10 +56,18 @@ class WashingProgram3 extends MessagingThread<WashingMessage> {
             // if we end up here, it means the program was interrupt()'ed
             // set all controllers to idle
 
-            temp.send(new WashingMessage(this, WashingMessage.TEMP_IDLE));
-            water.send(new WashingMessage(this, WashingMessage.WATER_IDLE));
-            spin.send(new WashingMessage(this, WashingMessage.SPIN_OFF));
-            System.out.println("washing program terminated");
+            try {
+            	
+				temp.send(new WashingMessage(this, WashingMessage.TEMP_IDLE));
+	            water.send(new WashingMessage(this, WashingMessage.WATER_IDLE));
+	            spin.send(new WashingMessage(this, WashingMessage.SPIN_OFF));
+	            System.out.println("washing program terminated");
+	            
+			} catch (InterruptedException e1) {
+				
+				e1.printStackTrace();
+				
+			}
         }
     }
 }
